@@ -100,7 +100,7 @@ export async function postbackCore(
                 return await processPostbackResponse(options, context, postedViewModel, initialState, response.result, response.response!);
             } catch (err: any) {
                 if (err instanceof DotvvmPostbackError) {
-                    throw err;
+                    throw new DotvvmPostbackError(err.reason);
                 }
                 
                 throw new DotvvmPostbackError({ 
@@ -155,6 +155,7 @@ async function processPostbackResponse(options: PostbackOptions, context: any, p
             wasInterrupted: false
         };
     } else if (result.action == "validationErrors") {
+        showValidationErrorsFromServer(result, options)
         throw new DotvvmPostbackError({
             type: "validation",
             response,
