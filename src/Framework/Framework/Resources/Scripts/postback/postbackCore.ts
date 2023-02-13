@@ -155,7 +155,6 @@ async function processPostbackResponse(options: PostbackOptions, context: any, p
             wasInterrupted: false
         };
     } else if (result.action == "validationErrors") {
-        showValidationErrorsFromServer(result, options);
         throw new DotvvmPostbackError({
             type: "validation",
             response,
